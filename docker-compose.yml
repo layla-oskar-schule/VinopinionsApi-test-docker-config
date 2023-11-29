@@ -1,7 +1,7 @@
 version: "3"
 services:
   api:
-    container_name: vinopinions-api-test
+    container_name: vinopinionsapi-test
     image: ghcr.io/layla-oskar-schule/vinopinionsapi-staging:latest
     env_file:
       - .env
@@ -25,6 +25,7 @@ services:
 networks:
   server:
     external: true
-  vinopinionsapi-test-internal:
+  internal:
+    internal: true
 volumes:
-  vinopinionsapi-test-db-data:
+  db-data:
