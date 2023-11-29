@@ -8,7 +8,7 @@ services:
     depends_on:
       - postgres
     networks:
-      - vinopinionsapi-test-internal
+      - internal
       - server
   postgres:
     container_name: vinopinionsapi-test-db
@@ -19,9 +19,21 @@ services:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_PORT=${POSTGRES_PORT}
     volumes:
-      - vinopinionsapi-test-db-data:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     networks:
-      - vinopinionsapi-test-internal
+      - internal
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: vinopinionsapi-test-pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - internal
+      - server
 networks:
   server:
     external: true
@@ -29,3 +41,4 @@ networks:
     internal: true
 volumes:
   db-data:
+  pgadmin-data:
